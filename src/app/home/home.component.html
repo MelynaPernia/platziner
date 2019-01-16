@@ -1,0 +1,55 @@
+<div id="home-container">
+  <div class="white-border-glass-box">
+    <div class="home-header-container">
+      <div class="row">
+        <div class="col-md-auto">
+          <div class="avatar-frame-online">
+            <img src="assets/img/generic_avatar.png" class="avatar-image img-fluid" id="home-avatar-picture">
+          </div>
+          <div class="col">
+            <b>jUAN</b>
+            <div>
+              <span>Online</span>
+              <br>
+              <span>
+                < Escribe un mensaje personal>
+              </span>
+              <br>
+              <a btn="btn btn-primary" (click)="logout()">logOut</a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="white-container-padded marto15">
+    <div class="row">
+      <div class="col">
+        <input class="form-control" type="text" placeholder="Busqueda" [(ngModel)]="query">
+      </div>
+      <div class="col-md-auto">
+        <img src="assets/img/logo_live_add.png" alt="" class="icon">
+      </div>
+    </div>
+    <hr>
+    <b *ngIf="friends">Amigos {{friends.length}} / {{friends.length}}</b>
+    <div *ngFor="let user of friends|search:query; let i = index" class="disblo marbo5">
+
+      <span routerLink="/conversation/{{user.uid}}">
+        <img class="icon" src="../../assets/img/logo_live_online.png" alt="">
+        <b>{{user.nick}}</b> - {{user.age}}- {{user.subnick || 'No subnick'}}
+        <small>{{user.email}}</small>
+      </span>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- <b>No amigos</b>
+<ng-container *ngFor="let user of friends; let i = index">
+  <p *ngIf="!user.friend">{{user.nick}} - {{user.email}}</p>
+</ng-container> -->
