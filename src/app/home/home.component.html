@@ -1,24 +1,25 @@
 <div id="home-container">
   <div class="white-border-glass-box">
     <div class="home-header-container">
-      <div class="row">
+      <div class="row mx-0">
         <div class="col-md-auto">
-          <div class="avatar-frame-online">
-            <img src="assets/img/generic_avatar.png" class="avatar-image img-fluid" id="home-avatar-picture">
+          <div class="avatar-frame-online ml-1 ">
+            <img src="{{user.avatar || 'assets/img/generic_avatar.png'}}" class="avatar-image img-fluid" id="home-avatar-picture">
           </div>
-          <div class="col">
-            <b>jUAN</b>
-            <div>
-              <span>Online</span>
-              <br>
-              <span>
-                < Escribe un mensaje personal>
-              </span>
-              <br>
-              <a btn="btn btn-primary" (click)="logout()">logOut</a>
+        </div>
+        <div class="col-md-7">
+          <span class="text-user">{{user.nick}} </span> <span class="text-user sub-text pl-1"> ({{user.status || ''}})</span>
+          <div>
 
-            </div>
+
+            <span>
+              < Escribe un mensaje personal>
+            </span>
+            <br>
+            <a btn="btn btn-primary" (click)="logout()">logOut</a>
+
           </div>
+
         </div>
       </div>
     </div>
@@ -29,22 +30,16 @@
         <input class="form-control" type="text" placeholder="Busqueda" [(ngModel)]="query">
       </div>
       <div class="col-md-auto">
-        <img src="assets/img/logo_live_add.png" alt="" class="icon"  (click)="open(content)">
+        <img src="assets/img/logo_live_add.png" alt="" class="icon" (click)="open(content)">
       </div>
     </div>
     <hr>
+
     <b *ngIf="user && user.friends">Amigos {{user.friends.length}} / {{user.friends.length}}</b>
     <div *ngIf="user && user.friends">
-        <div *ngFor="let user of user.friends|search:query; let i = index" class="disblo marbo5">
-            <!--
-                  <span routerLink="/conversation/{{user.uid}}">
-                    <img class="icon" src="../../assets/img/logo_live_online.png" alt="">
-                    <b>{{user.nick}}</b> - {{user.age}}- {{user.subnick || 'No subnick'}}
-                    <small>{{user.email}}</small>
-                  </span>
-                -->
-                <div>{{user}}</div>
-                </div>
+      <div class="disblo marbo5">
+        <app-contact class="col-md-12" *ngFor="let user of user.friends" [uid]="user"></app-contact>
+      </div>
     </div>
 
   </div>
@@ -52,28 +47,27 @@
 </div>
 
 <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Agregar Amigo</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Agregar Amigo</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="">
+      <b>Ingrese el email de tu amigo </b>
+      <input type="email" class="form-control" placeholder="email" [(ngModel)]="friendEmail" (keyup.enter)="sendRequest()">
     </div>
-    <div class="modal-body">
-      <div class="">
-        <b>Ingrese el email de tu amigo </b>
-        <input type="email" class="form-control" placeholder="email" [(ngModel)]="friendEmail"
-        (keyup.enter)="sendRequest()">
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="sendRequest()">Guardar</button>
-    </div>
-  </ng-template>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="sendRequest()">Guardar</button>
+  </div>
+</ng-template>
 
 
-  <hr>
+<hr>
 
-  <pre>{{closeResult}}</pre>
+<pre>{{closeResult}}</pre>
 
 <!-- <b>No amigos</b>
 <ng-container *ngFor="let user of friends; let i = index">

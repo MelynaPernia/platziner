@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col-md-3">
-        <div class="avatarFrameoffline marto15 marbo15">
+        <div class="avatar-frame-offline avatar-frame-online marto15 marbo15 ">
           <img src="assets/img/generic_avatar.png" class="avatar-image img-fluid">
         </div>
       </div>
@@ -13,7 +13,7 @@
           <h3>Iniciar Sesión</h3>
         </div>
         <p *ngIf="operation == 'register'">Ya tienes cuenta? has <a (click)="operation ='login'">Login</a></p>
-        <p *ngIf="operation == 'login'">No tienes cuenta? has <a (click)="operation ='register'">Registrarse</a></p>
+        <p *ngIf="operation == 'login'">Inicia sesión con tu cuenta. ¿No tienes una? <a (click)="operation ='register'" class="link-session font-weight-bold">Registrarse</a></p>
 
         <div class="border-container">
           <input class="form-control marbo15" [(ngModel)]="email" type="email" placeholder="Ingrese Email">

@@ -22,22 +22,27 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private requestService: RequestsService) {
+
     this.userService.getUsers().valueChanges()
       .subscribe((data: User[]) => {
-        console.log(data)
+        // console.log(data)
         this.friends = data
       }, (error) => { console.log(error) });
     this.authenticationService.getStatus().subscribe(
       (status) => {
-        this.userService.getUserById(status.uid).valueChanges().subscribe(
-          (data: User) => {
-            this.user = data
-            if(this.user.friends) {
-              this.user.friends = Object.values(this.user.friend)
-              
+        this.userService.getUserById(status.uid).valueChanges()
+          .subscribe(
+            (data: User) => {
+              // console.log(typeof data)
+              this.user = data
+              if (this.user.friends) {
+                console.log(this.user.friends)
+                this.user.friends = Object.values(this.user.friends)
+                console.log(this.user.friends)
+
+              }
             }
-          }
-        )
+          )
       }
     )
   }

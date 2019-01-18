@@ -10,13 +10,14 @@ export class ConversationService {
 
   createConversation(conversation) {
     // Insertando dentro de firebase
-    return this.angularFireDataBase.object('conversations/' + conversation.uid + '/' + conversation.timesLamp).set(conversation)
+    return this.angularFireDataBase.object('conversations/' + conversation.uid + '/' + conversation.timestamp).set(conversation)
   }
 
   getConversation(uid) {
+    // console.log(uid)
     return this.angularFireDataBase.list('conversations/' + uid);
   }
   editConversation(conversation) {
-    return this.angularFireDataBase.object('conversations/' + conversation.uid + '/' + conversation.timesLamp).set(conversation)
+    return this.angularFireDataBase.object('conversations/' + conversation.uid + '/' + conversation.timestamp).set(conversation)
   }
 }

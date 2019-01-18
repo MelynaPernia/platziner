@@ -28,13 +28,11 @@ export class ConversationComponent implements OnInit {
     this.friendId = this.activateRoute.snapshot.params['uid'];
 
 
-    // this.friends = this.userService.getFriends();
-    // this.friend = this.friends.find(item => item.uid == this.friendId)
-    // console.log(this.friend)
     this.authenticationService.getStatus()
       .subscribe((session) => this.userService.getUserById(session.uid).valueChanges()
         .subscribe((user: User) => {
           this.user = user
+          console.log(user)
           this.userService.getUserById(this.friendId).valueChanges()
             .subscribe((data: User) => {
               this.friend = data
@@ -84,30 +82,50 @@ export class ConversationComponent implements OnInit {
   }
 
   getConversation() {
-    this.conversationService.getConversation(this.conversation_id).valueChanges().subscribe(
-      (data) => {
-        this.conversation = data;
-        this.conversation.forEach((message) => {
-          if (!message.seen) {
-            message.seen = true;
-            this.conversationService.editConversation(message);
-            if (message.type == 'text') {
-              // para reproducir el audio
-              const audio = new Audio('assets/sound/new_message.m4a');
-              // console.log(audio)
-              audio.play();
-            } else if(message.type == 'zumbido'){
-              this.doZumbido();
-            }
+    // console.log('conversation' , this.conversation_id)
+    this.conversationService.getConversation(this.conversation_id)
+      .valueChanges().subscribe(
+        (data) => {
+          this.conversation = data;
+          // console.log(this.conversation)
+          this.conversation.forEach((message: any) => {
+            // console.log(!message.seen)
+            if (!message.seen) {
+              message.seen = true;
+              this.conversationService.editConversation(message);
+              if (message.type == 'text') {
+                // para reproducir el audio
+                const audio = new Audio('assets/sound/new_message.m4a');
+                // console.log(audio)
+                audio.play();
+              } else if (message.type == 'zumbido') {
+                this.doZumbido();
+              }
 
-          }
-        })
-        console.log(data)
-      },
-      (error) => {
-        console.log(error)
-      }
-    )
+            }
+          })
+          // this.conversation.forEach((message) => {
+          //   if (!message.seen) {
+          //     message.seen = true;
+          //     this.conversationService.editConversation(message);
+          //     if (message.type == 'text') {
+          //       // para reproducir el audio
+          //       const audio = new Audio('assets/sound/new_message.m4a');
+          //       // console.log(audio)
+          //       audio.play();
+          //     } else if (message.type == 'zumbido') {
+          //       this.doZumbido();
+          //     }
+
+          //   }
+          // })
+          // console.log(data)
+
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
   }
   // editConversation(conversation) {
   //   this.conversationService.getConversation(this.conversation_id).valueChanges().subscribe(

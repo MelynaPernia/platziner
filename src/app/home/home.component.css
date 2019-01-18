@@ -14,7 +14,7 @@
 }
 
 .home-header-container {
-  background-color: rgba(255, 255, 255, .50)
+  background-color: rgba(255, 255, 255, .50);
 }
 
 #home-avatar-picture {
@@ -30,4 +30,10 @@ img.icon {
   width: 30px;
 }
 
+.text-user {
+  text-shadow: -3px 2px 2px #D9D9CF
+}
 
+.sub-text {
+  font-size: 0.7rem;
+}
